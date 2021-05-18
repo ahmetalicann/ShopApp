@@ -15,7 +15,7 @@ namespace ShopApp.DataAccess.Abstract
         //Kullanıcı linq ile istediği 1 kaydı geri döndürür.
         T GetOne(Expression<Func<T, bool>> filter);
         //Kullanıcı linq ile istediği kayıtları geri döndürür.
-        IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null);
+        List<T> GetAll(Expression<Func<T, bool>> filter = null);
 
         void Create(T entity);
         void Update(T entity);
