@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ShopApp.Business.Abstract
 {
-    public interface IProductService
+    public interface IProductService : IValidator<Product>
     {
         //Id ye göre ürün getirecek.
         Product GetById(int id);
@@ -15,7 +15,7 @@ namespace ShopApp.Business.Abstract
         //istediğimiz methodu buraya ekleyip içini doldurmamız gerekir.
         List<Product> GetProductsByCategory(string category,int page, int pageSize);
 
-        void Create(Product entity);
+        bool Create(Product entity);
         void Update(Product entity);
         void Delete(Product entity);
         int GetCountByCategory(string category);

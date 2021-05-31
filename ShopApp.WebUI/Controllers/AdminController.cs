@@ -31,22 +31,36 @@ namespace ShopApp.WebUI.Controllers
         [HttpGet]
         public IActionResult CreateProduct()
         {
-            return View();
+            return View(new ProductModel());
         }
 
         [HttpPost]
         public IActionResult CreateProduct(ProductModel model)
         {
-            var entity = new Product()
+            if (ModelState.IsValid)
             {
-                Name = model.Name,
-                Price = model.Price,
-                Description = model.Description,
-                ImageUrl = model.ImageUrl
-            };
-            _productService.Create(entity);
+                var entity = new Product()
+                {
+                    Name = model.Name,
+                    Price = model.Price,
+                    Description = model.Description,
+                    ImageUrl = model.ImageUrl
+                };
 
-            return Redirect("ProductList");
+                if (_productService.Create(entity))
+                {
+                    return Redirect("ProductList");
+                }
+
+                ViewBag.ErrorMessage = _productService.ErrorMessage;
+                return View(model);
+                
+
+                
+            }
+
+            return View(model);
+          
         }
         [HttpGet]
         public IActionResult EditProduct(int? id)
